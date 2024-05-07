@@ -1,0 +1,169 @@
+/* Estilo general para el body */
+body {
+    background-image: url("imagenes/wood-plank-texture-with-framing-of-green-leaves-vector.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* Estilo para hacer las imágenes responsivas */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilo para el menú desplegable */
+#menuToggle {
+    display: block;
+    position: relative;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Estilos para el ícono del menú desplegable */
+#menuToggle a {
+    text-decoration: none;
+    color: #232323;
+    transition: color 0.3s ease;
+}
+
+#menuToggle a:hover {
+    color: rgb(20, 236, 56);
+}
+
+#menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    opacity: 0;
+    z-index: 2;
+    -webkit-touch-callout: none;
+}
+
+#menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #2b74ad;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+        opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+    transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked~span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #d00f0f;
+}
+
+#menuToggle input:checked~span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked~span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+#menu {
+    position: absolute;
+    width: 300px;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 125px;
+    background: #ededed;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+}
+
+#menu li {
+    padding: 10px 0;
+    font-size: 22px;
+}
+
+#menuToggle input:checked~ul {
+    transform: none;
+}
+
+/* No es necesario repetir la clase .imagen, puedes aplicar el estilo directamente a todas las imágenes */
+
+/* Estilo para la navegación */
+.navegacion {
+    background-color: #006600;
+    width: 100%;
+    top: 0;
+    text-align: center;
+}
+
+.navegacion ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navegacion ol li {
+    display: inline-block;
+}
+
+.navegacion ol li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.navegacion ol li a:hover {
+    background-color: #00FF66;
+}
+
+.logo {
+    width: 12px;
+}
+
+/* Estilo para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .navegacion {
+        display: none;
+    }
+
+    .navigation {
+        display: block;
+    }
+    video {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .navigation {
+        display: none;
+    }
+}

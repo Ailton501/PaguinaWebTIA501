@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shocur icon" href="imagenes/logo.ico">
+  <title  >Metodos numericos</title>
+ <link href="metodos.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="banner">
+    <center>
+      <font face="Monotype Corsiva" align="center" color="green"size="6"><h1>Herbolaria "Artemisa"</h1></font>
+      <font face="Monotype Corsiva" align="center" color="green"size="5"> <b><I><h2>"Bienvenido al mundo naturista" </h2></I></b></font>
+    </center>
+    <div class="navegacion">
+      <ol>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Análisis y diseño de sistemas.HTML">Análisis y diseño de sistemas</a></li>
+        <li><a href="Métodos Numéricos.html">Métodos numéricos</a></li>
+        <li><a href="Desarrollo de Aplicaciones Móviles.HTML">Aplicaciones móviles</a></li>
+        <li><a href="Arquitectura.html">Arquitectura</a></li>
+        <li><a href="contactanos.html">Contáctanos</a></li>
+      </ol>
+    </div>
+  
+   
+ <nav class="navigation">
+      <div id="menuToggle">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+        <ul id="menu">
+          <a href="PRINCIPAL.HTML"><li>Inicio</li></a>
+          <a href="Análisis y diseño de sistemas.HTML"><li>Analisis y diseño de sistemas</li></a>
+          <a href="Métodos Numéricos.html"><li>Métodos numéricos</li></a>
+          <a href="Desarrollo de Aplicaciones Móviles.HTML"><li>Aplicaciones móviles</li></a>
+          <a href="Arquitectura.html"><li>Arquitectura</li></a>
+          <a href="contactanos.html"target><li>Contáctanos</li></a>
+        </ul>
+      </div>
+    </nav>
+ 
+  <font face="Monotype corsiva" align="center" color="green" size="6"><h1>Método de Newton-Raphson</h1></font>
+  <font face="Arial" align="justify" color="black"size="4"><div>El método de Newton-Raphson, nombrado en honor a Isaac Newton y Joseph Raphson, es un algoritmo fundamental 
+    en el campo de las matemáticas aplicadas y la ingeniería. Este método se utiliza para encontrar raíces de ecuaciones no lineales, lo cual es crucial en la resolución de
+     problemas del mundo real.
+
+    Una de las características más destacadas del método de Newton-Raphson es su eficiencia. A través de iteraciones sucesivas, el algoritmo converge rápidamente hacia la
+     solución, proporcionando aproximaciones cada vez más precisas de la raíz buscada. Esta rapidez lo hace invaluable en aplicaciones donde se requiere una solución rápida y precisa.
+    
+    
+    </div></font>
+    <font face="Monotype corsiva" align="center" color="green"size="6"><h3>PASOS:</h3></font>
+    <font face="Arial" align="justify" color="black"size="4">
+      <div>El método de Newton-Raphson sigue los siguientes pasos:<br></br>
+
+1. Seleccionar una aproximación inicial \(x_0\) para la raíz de la función.                             <br></br>
+2. Calcular la derivada de la función original.                             <br></br>
+3. Utilizar la fórmula de iteración: 
+   \[ x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} \]
+   donde \(f(x_n)\) es el valor de la funciónen \(x_n\) y \(f'(x_n)\) es el valor de la derivada en \(x_n\).<br></br>
+4. Repetir el paso 3 con la nueva aproximación \(x_{n+1}\) hasta que se alcance la precisión deseada o se cumpla un criterio de convergencia.
+
+Estos pasos se repiten iterativamente hasta que se obtenga una aproximación satisfactoria de la raíz de la función.
+<br></br>
+<font face="Monotype corsiva" align="center" color="green" size="6"><h2>Pseudocódigo y diagrama de flujo</h2></font>
+</font>
+<left><img src="imagenes/pseudocodigo.png" height="1000" width="600"></left>
+<right><img src="imagenes/diagramametodos.png" height="1000" width="600"></right>
+<font face="Monotype corsiva" align="center" color="green" size="6"><h2>Ejercicio</h2></font>
+</font>
+
+  <center> <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div>
+    <h1>Método de Newton-Raphson</h1>
+    <label for="input">Ingrese la función f(x): </label>
+    <input type="text" id="input" placeholder="ej: x*x*x - 2*x*x - 5" />
+    <br>
+    <label for="guess">Ingrese una estimación inicial: </label>
+    <input type="number" id="guess" />
+    <br>
+    <button onclick="newtonRaphson()">Calcular Raíz y Graficar</button>
+
+    <!-- Div para el gráfico -->
+    <div id="plot"></div>
+
+    <!-- Tabla de iteraciones -->
+    <div id="tableContainer"></div>
+
+    <script>
+      function newtonRaphson() {
+        const funcString = document.getElementById('input').value;
+        const guess = parseFloat(document.getElementById('guess').value);
+        const tolerance = 0.0001; // Tolerancia para la convergencia
+        const maxIterations = 100; // Máximo número de iteraciones
+
+        // Convertir la cadena de texto de la función en una función de JavaScript
+        const func = new Function('x', 'return ' + funcString);
+
+        let x0 = guess;
+        let x1;
+        let iterations = 0;
+        let iterationData = [];
+
+        // Derivada de la función
+        const derivative = (x) => {
+          const h = 0.0001;
+          return (func(x + h) - func(x)) / h;
+        };
+
+        // Método de Newton-Raphson
+        do {
+          x1 = x0 - func(x0) / derivative(x0);
+          iterations++;
+          iterationData.push({ iteration: iterations, x: x1, f_x: func(x1) });
+          x0 = x1;
+        } while (Math.abs(func(x1)) > tolerance && iterations < maxIterations);
+
+        // Mostrar el resultado
+        if (iterations < maxIterations) {
+          // Generar datos para la función y la raíz
+          const traceFunction = {
+            x: [],
+            y: [],
+            mode: 'lines',
+            name: 'Función'
+          };
+          const traceRoot = {
+            x: [x1],
+            y: [func(x1)],
+            mode: 'markers',
+            marker: {
+              color: 'red',
+              size: 10,
+              symbol: 'cross'
+            },
+            name: 'Raíz'
+          };
+          const xValues = Array.from({ length: 100 }, (_, i) => -10 + i * 0.2); // Valores de x para el gráfico
+
+          // Calcular y almacenar los valores de la función en xValues
+          xValues.forEach(x => {
+            traceFunction.x.push(x);
+            traceFunction.y.push(func(x));
+          });
+
+          // Configurar el diseño del gráfico
+          const layout = {
+            title: 'Gráfico de la función y su raíz',
+            xaxis: { title: 'x' },
+            yaxis: { title: 'f(x)' }
+          };
+
+          // Renderizar el gráfico
+          Plotly.newPlot('plot', [traceFunction, traceRoot], layout);
+
+          // Mostrar la tabla de iteraciones
+          renderIterationTable(iterationData);
+        } else {
+          alert('No se pudo encontrar la raíz dentro de la tolerancia especificada.');
+        }
+      }
+
+      // Función para renderizar la tabla de iteraciones
+      function renderIterationTable(data) {
+        const tableContainer = document.getElementById('tableContainer');
+        tableContainer.innerHTML = '';
+
+        const table = document.createElement('table');
+        const headerRow = table.insertRow();
+        headerRow.innerHTML = '<th>Iteración</th><th>x</th><th>f(x)</th>';
+
+        data.forEach(item => {
+          const row = table.insertRow();
+          row.innerHTML = `<td>${item.iteration}</td><td>${item.x.toFixed(6)}</td><td>${item.f_x.toFixed(6)}</td>`;
+        });
+
+        tableContainer.appendChild(table);
+      }
+    </script></center>
+</body>
+ 
+</body>
